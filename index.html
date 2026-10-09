@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jelajah Kegiatan Ekonomi: Produksi, Distribusi, Konsumsi</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4ECDC4;
+            --secondary: #FF6B6B;
+            --accent: #FFE66D;
+            --dark: #2C3E50;
+            --light: #F7F9FC;
+            --success: #2ECC71;
+            --warning: #F39C12;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: #EEF2F7;
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #1A535C, #4ECDC4);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-title h1 {
+            font-family: 'Fredoka', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-sound {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-sound:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        .user-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Container Main */
+        main {
+            flex: 1;
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Screen Sections */
+        .screen {
+            display: none;
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Common Elements */
+        h2.section-title {
+            font-family: 'Fredoka', cursive;
+            color: #1A535C;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px rounded var(--accent);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            filter: brightness(1.05);
+        }
+
+        .btn-secondary { background-color: var(--secondary); }
+        .btn-accent { background-color: var(--warning); color: var(--dark); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+
+        /* Welcome Screen */
+        .welcome-card {
+            text-align: center;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .welcome-card i.hero-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+        }
+
+        /* Menu Navigasi Utama */
+        .main-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .menu-card {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .menu-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: #F0FDF4;
+        }
+
+        .menu-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .menu-card h3 {
+            font-family: 'Fredoka', cursive;
+            margin-bottom: 8px;
+        }
+
+        /* Modul Materi */
+        .materi-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px 18px;
+            background: #E2E8F0;
+            border: none;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .materi-box {
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .materi-box img, .illustration-box {
+            width: 100%;
+            height: 200px;
+            background: #E2E8F0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            color: #718096;
+            font-size: 3rem;
+        }
+
+        /* External Document Links */
+        .doc-links-panel {
+            background: #EBF8FF;
+            border: 1px dashed #3182CE;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        /* Interactive Games Area */
+        .game-container {
+            border: 2px dashed #CBD5E1;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+            background: #FAF5FF;
+        }
+
+        .drag-items {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .draggable {
+            background: var(--primary);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .drop-zones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .dropzone {
+            background: white;
+            border: 2px dashed #94A3B8;
+            min-height: 120px;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .dropzone h4 {
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        /* Quiz Styling */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: #F1F5F9;
+            border: 2px solid #E2E8F0;
+            padding: 14px;
+            border-radius: 10px;
+            text-align: left;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: #E6FFFA;
+        }
+
+        .option-btn.correct { background: #DEF7EC; border-color: var(--success); }
+        .option-btn.wrong { background: #FDE8E8; border-color: var(--secondary); }
+
+        .explanation-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: #FEF08A;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        /* Dashboard Teacher Table */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        th { background: #F8FAFC; }
+
+        /* Responsive Design Rules */
+        @media (max-width: 768px) {
+            header { padding: 0.8rem 1rem; }
+            .logo-title h1 { font-size: 1.2rem; }
+            .screen { padding: 20px 15px; }
+            .main-menu-grid { grid-template-columns: 1fr; }
+            .drop-zones { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header App -->
+    <header>
+        <div class="logo-title">
+            <h1><i class="fa-solid fa-graduation-cap"></i> Jelajah Ekonomi</h1>
+        </div>
+        <div class="nav-controls">
+            <button class="btn-sound" id="toggleSound" title="Aktifkan/Matikan Suara"><i class="fa-solid fa-volume-high"></i></button>
+            <div class="user-badge" id="displayUser">Tamu</div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. HALAMAN PEMBUKA -->
+        <section id="screen-welcome" class="screen active">
+            <div class="welcome-card">
+                <i class="fa-solid fa-chart-line hero-icon"></i>
+                <h2 class="section-title">Selamat Datang!</h2>
+                <p>Mari belajar konsep Produksi, Distribusi, dan Konsumsi dengan cara yang menyenangkan.</p>
+                <form id="form-login" onsubmit="startApp(event)">
+                    <div class="form-group">
+                        <label for="username"><i class="fa-solid fa-user"></i> Nama Lengkap</label>
+                        <input type="text" id="username" placeholder="Masukkan nama kamu..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userclass"><i class="fa-solid fa-school"></i> Kelas</label>
+                        <select id="userclass" required>
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="7-A">7-A</option>
+                            <option value="7-B">7-B</option>
+                            <option value="7-C">7-C</option>
+                            <option value="7-D">7-D</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-accent" style="width: 100%;"><i class="fa-solid fa-rocket"></i> Mulai Belajar</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 2. MENU UTAMA -->
+        <section id="screen-menu" class="screen">
+            <h2 class="section-title">Pilih Menu Pembelajaran</h2>
+            <div class="main-menu-grid">
+                <div class="menu-card" onclick="showScreen('screen-materi')">
+                    <i class="fa-solid fa-book-open"></i>
+                    <h3>Materi Interaktif</h3>
+                    <p>Pahami konsep Dasar Kegiatan Ekonomi secara menyeluruh.</p>
+                </div>
+                <div class="menu-card" onclick="showScreen('screen-game')">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <h3>Aktivitas Game</h3>
+                    <p>Uji pemahaman lewat permainan kelompokkan & simulasi.</p>
+                </div>
+                <div class="menu-card" onclick="showScreen('screen-quiz')">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <h3>Kuis Evaluasi</h3>
+                    <p>Selesaikan 10 soal pilihan ganda untuk mengukur nilai.</p>
+                </div>
+                <div class="menu-card" onclick="showScreen('screen-refleksi')">
+                    <i class="fa-solid fa-brain"></i>
+                    <h3>Refleksi Diri</h3>
+                    <p>Tuliskan apa saja yang sudah kamu pahami dari modul.</p>
+                </div>
+                <div class="menu-card" onclick="showScreen('screen-teacher')">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <h3>Dashboard Guru</h3>
+                    <p>Pantau & unduh data rekapitulasi nilai siswa.</p>
+                </div>
+            </div>
+
+            <!-- Tautan Google Dokumen Eksternal -->
+            <div class="doc-links-panel">
+                <a id="link-materi" href="#" target="_blank" class="btn btn-outline"><i class="fa-solid fa-file-lines"></i> Buka Materi di Google Dokumen</a>
+                <a id="link-lkpd" href="#" target="_blank" class="btn btn-outline"><i class="fa-solid fa-file-pen"></i> Buka LKPD</a>
+                <a id="link-panduan" href="#" target="_blank" class="btn btn-outline"><i class="fa-solid fa-chalkboard-user"></i> Lihat Panduan Guru</a>
+            </div>
+        </section>
+
+        <!-- 3. HALAMAN MATERI INTERAKTIF -->
+        <section id="screen-materi" class="screen">
+            <button class="btn btn-outline" onclick="showScreen('screen-menu')" style="margin-bottom: 15px;"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+            <h2 class="section-title">Materi Kegiatan Ekonomi</h2>
+            
+            <div class="materi-tabs">
+                <button class="tab-btn active" onclick="switchMateri(0)">Pengertian</button>
+                <button class="tab-btn" onclick="switchMateri(1)">1. Produksi</button>
+                <button class="tab-btn" onclick="switchMateri(2)">2. Distribusi</button>
+                <button class="tab-btn" onclick="switchMateri(3)">3. Konsumsi</button>
+                <button class="tab-btn" onclick="switchMateri(4)">Contoh Nyata</button>
+            </div>
+
+            <div id="materi-content" class="materi-box">
+                <!-- Konten dinamis dirender via JS -->
+            </div>
+        </section>
+
+        <!-- 4. AKTIVITAS INTERAKTIF (GAME) -->
+        <section id="screen-game" class="screen">
+            <button class="btn btn-outline" onclick="showScreen('screen-menu')" style="margin-bottom: 15px;"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+            <h2 class="section-title">Aktivitas & Permainan</h2>
+
+            <h3>Permainan Mengelompokkan Kegiatan Ekonomi</h3>
+            <p>Tarik (drag) item kegiatan di bawah ini dan letakkan (drop) ke kotak kategori yang tepat!</p>
+            
+            <div class="game-container">
+                <div class="drag-items" id="drag-container">
+                    <div class="draggable" draggable="true" id="item1" data-category="produksi">Petani Menanam Padi</div>
+                    <div class="draggable" draggable="true" id="item2" data-category="distribusi">Kurir Mengantar Paket</div>
+                    <div class="draggable" draggable="true" id="item3" data-category="konsumsi">Siswa Membeli Es Krim</div>
+                    <div class="draggable" draggable="true" id="item4" data-category="produksi">Pabrik Membuat Sepatu</div>
+                    <div class="draggable" draggable="true" id="item5" data-category="distribusi">Pedagang Menjual Sayur</div>
+                </div>
+
+                <div class="drop-zones">
+                    <div class="dropzone" data-category="produksi">
+                        <h4><i class="fa-solid fa-industry"></i> PRODUKSI</h4>
+                    </div>
+                    <div class="dropzone" data-category="distribusi">
+                        <h4><i class="fa-solid fa-truck"></i> DISTRIBUSI</h4>
+                    </div>
+                    <div class="dropzone" data-category="konsumsi">
+                        <h4><i class="fa-solid fa-utensils"></i> KONSUMSI</h4>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; text-align: center;">
+                    <button class="btn btn-accent" onclick="resetGame()"><i class="fa-solid fa-rotate-right"></i> Reset Permainan</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. KUIS EVALUASI -->
+        <section id="screen-quiz" class="screen">
+            <button class="btn btn-outline" onclick="showScreen('screen-menu')" style="margin-bottom: 15px;"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+            
+            <div id="quiz-body">
+                <div class="quiz-header">
+                    <span id="quiz-progress">Soal 1 dari 10</span>
+                    <span id="quiz-score-live">Skor: 0</span>
+                </div>
+                <div class="question-text" id="q-text">Pertanyaan akan dimuat...</div>
+                <div class="options-grid" id="q-options">
+                    <!-- Opsi Jawaban dirender via JS -->
+                </div>
+                <div class="explanation-box" id="q-explain">
+                    <strong>Pembahasan:</strong> <span id="explain-text"></span>
+                </div>
+                <div style="margin-top: 20px; text-align: right;">
+                    <button class="btn btn-secondary" id="btn-next-q" onclick="nextQuestion()" style="display: none;">Soal Berikutnya <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Quiz Result View -->
+            <div id="quiz-result" style="display: none; text-align: center;">
+                <i class="fa-solid fa-trophy" style="font-size: 4rem; color: var(--accent); margin-bottom: 15px;"></i>
+                <h2>Hasil Kuis Evaluasi</h2>
+                <h1 id="final-score" style="font-size: 3.5rem; color: var(--primary); margin: 10px 0;">0</h1>
+                <p id="final-stats">Benar: 0 | Salah: 0</p>
+                <div id="motivation-msg" style="margin: 15px 0; font-weight: 700; font-size: 1.1rem; color: var(--dark);"></div>
+                <button class="btn btn-accent" onclick="restartQuiz()"><i class="fa-solid fa-rotate-right"></i> Ulangi Kuis</button>
+                <button class="btn" onclick="showScreen('screen-refleksi')">Lanjut ke Refleksi <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <!-- 6. HALAMAN REFLEKSI -->
+        <section id="screen-refleksi" class="screen">
+            <button class="btn btn-outline" onclick="showScreen('screen-menu')" style="margin-bottom: 15px;"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+            <h2 class="section-title">Refleksi Belajar</h2>
+            
+            <form id="form-refleksi" onsubmit="submitRefleksi(event)">
+                <div class="form-group">
+                    <label>1. Apa saja materi yang sudah berhasil kamu pelajari hari ini?</label>
+                    <textarea id="ref1" rows="3" style="width:100%; padding:10px; border-radius:8px; border:1px solid #CBD5E1;" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>2. Menurutmu, apa perbedaan mendasar antara Produksi, Distribusi, dan Konsumsi?</label>
+                    <textarea id="ref2" rows="3" style="width:100%; padding:10px; border-radius:8px; border:1px solid #CBD5E1;" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>3. Sebutkan contoh nyata kegiatan ekonomi yang kamu temukan di sekitar rumahmu!</label>
+                    <textarea id="ref3" rows="3" style="width:100%; padding:10px; border-radius:8px; border:1px solid #CBD5E1;" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>4. Bagian mana dari materi ini yang dirasa masih cukup sulit dipahami?</label>
+                    <textarea id="ref4" rows="3" style="width:100%; padding:10px; border-radius:8px; border:1px solid #CBD5E1;" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-accent" style="width: 100%;"><i class="fa-solid fa-paper-plane"></i> Kirim Hasil Belajar Ke Guru</button>
+            </form>
+        </section>
+
+        <!-- 7. DASHBOARD GURU -->
+        <section id="screen-teacher" class="screen">
+            <button class="btn btn-outline" onclick="showScreen('screen-menu')" style="margin-bottom: 15px;"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+            <h2 class="section-title">Dashboard Rekapitulasi Guru</h2>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button class="btn btn-accent" onclick="downloadCSV()"><i class="fa-solid fa-download"></i> Unduh Rekap CSV</button>
+                <button class="btn btn-secondary" onclick="resetTeacherData()"><i class="fa-solid fa-trash"></i> Reset Data Lokal</button>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Nama</th>
+                            <th>Kelas</th>
+                            <th>Nilai Kuis</th>
+                            <th>Benar/Salah</th>
+                            <th>Hasil Refleksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teacher-table-body">
+                        <!-- Data dikirim dan disimpan secara lokal / via Apps Script -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        /* ==========================================================================
+           KONFIGURASI TAUTAN EXTERNAL GOOGLE WORKSPACE
+           ========================================================================== */
+        const URL_APPS_SCRIPT = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; 
+        const URL_GOOGLE_DOKUMEN_MATERI = "https://docs.google.com/document/d/your-materi-id/edit";
+        const URL_GOOGLE_DOKUMEN_LKPD = "https://docs.google.com/document/d/your-lkpd-id/edit";
+        const URL_PANDUAN_GURU = "https://docs.google.com/document/d/your-panduan-id/edit";
+
+        /* State Global Aplikasi */
+        let currentUser = { name: '', class: '' };
+        let audioMuted = false;
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let totalCorrect = 0;
+        let totalWrong = 0;
+
+        // Data Soal Kuis Evaluasi (10 Soal Pilihan Ganda)
+        const quizData = [
+            {
+                q: "Apa yang dimaksud dengan kegiatan ekonomi?",
+                options: [
+                    "Kegiatan manusia untuk menghabiskan waktu luang",
+                    "Kegiatan manusia untuk memenuhi kebutuhan hidupnya",
+                    "Kegiatan bertani saja",
+                    "Kegiatan menabung uang di bank"
+                ],
+                ans: 1,
+                exp: "Kegiatan ekonomi adalah semua bentuk aktivitas manusia yang bertujuan untuk memenuhi berbagai kebutuhan hidupnya sehari-hari."
+            },
+            {
+                q: "Kegiatan menghasilkan barang atau menambah nilai guna suatu barang disebut...",
+                options: ["Konsumsi", "Distribusi", "Produksi", "Investasi"],
+                ans: 2,
+                exp: "Produksi adalah kegiatan menciptakan barang/jasa baru atau meningkatkan nilai manfaat barang yang sudah ada."
+            },
+            {
+                q: "Seorang petani mengolah sawah hingga menghasilkan padi. Dalam kegiatan ekonomi, petani bertindak sebagai...",
+                options: ["Konsumen", "Distributor", "Produsen", "Pengecer"],
+                ans: 2,
+                exp: "Orang atau pihak yang melakukan kegiatan produksi dinamakan Produsen."
+            },
+            {
+                q: "Tujuan utama dari kegiatan distribusi adalah...",
+                options: [
+                    "Menghabiskan barang buatan pabrik",
+                    "Menyalurkan barang dan jasa dari produsen ke konsumen",
+                    "Mengolah bahan mentah menjadi barang jadi",
+                    "Menggunakan barang sampai habis"
+                ],
+                ans: 1,
+                exp: "Distribusi menjembatani dan menyalurkan hasil produksi agar sampai ke tangan konsumen tepat waktu."
+            },
+            {
+                q: "Berikut ini yang merupakan contoh kegiatan konsumsi di lingkungan sekolah adalah...",
+                options: [
+                    "Koki memasak makanan di kantin",
+                    "Siswa membeli mie ayam di kantin untuk dimakan",
+                    "Pabrik menerbitkan buku pelajaran",
+                    "Kurir mengantar paket buku ke perpustakaan"
+                ],
+                ans: 1,
+                exp: "Membeli makanan untuk dimakan langsung merupakan aktivitas menggunakan/menghabiskan nilai guna barang (Konsumsi)."
+            },
+            {
+                q: "Kurir ekspedisi mengantarkan paket belanjaan online dari gudang penjual ke rumah pembeli. Aktivitas kurir tersebut termasuk kegiatan...",
+                options: ["Produksi", "Distribusi", "Konsumsi", "Eksploitasi"],
+                ans: 1,
+                exp: "Kurir bertindak sebagai penyalur barang (Distributor) dalam saluran kegiatan distribusi."
+            },
+            {
+                q: "Pak Budi memotong kayu lalu merakitnya menjadi meja dan kursi belajar. Nilai guna kayu tersebut bertambah karena perubahan...",
+                options: ["Tempat", "Kepemilikan", "Bentuk", "Waktu"],
+                ans: 2,
+                exp: "Ini merupakan contoh peningkatan nilai guna bentuk (Form Utility) melalui proses produksi."
+            },
+            {
+                q: "Hubungan yang tepat antara produsen, distributor, dan konsumen adalah...",
+                options: [
+                    "Produsen membeli barang dari konsumen lalu dijual oleh distributor",
+                    "Distributor membuat barang untuk dimakan oleh produsen",
+                    "Produsen membuat barang, disalurkan oleh distributor, lalu digunakan oleh konsumen",
+                    "Konsumen menyalurkan barang buatan distributor ke produsen"
+                ],
+                ans: 2,
+                exp: "Alur kegiatan ekonomi yang benar dimulai dari Produsen (pembuat) -> Distributor (penyalur) -> Konsumen (pengguna)."
+            },
+            {
+                q: "Manakah di bawah ini yang merupakan contoh kegiatan produksi di bidang jasa?",
+                options: [
+                    "Penjahit baju",
+                    "Pengrajin gerabah",
+                    "Guru yang mengajar di kelas",
+                    "Peternak ayam bertelur"
+                ],
+                ans: 2,
+                exp: "Guru, dokter, dan tukang cukur menghasilkan produk dalam bentuk layanan/jasa, bukan barang fisik."
+            },
+            {
+                q: "Ibu Rina membeli beras di pasar untuk dimasak menjadi nasi bagi keluarganya. Ibu Rina berperan sebagai...",
+                options: ["Produsen", "Distributor", "Konsumen", "Pengecer"],
+                ans: 2,
+                exp: "Pihak yang menggunakan/menghabiskan barang kebutuhan untuk keperluan pribadi atau keluarga dinamakan Konsumen."
+            }
+        ];
+
+        // Data Materi Pembelajaran
+        const materiData = [
+            {
+                title: "Pengertian Kegiatan Ekonomi",
+                icon: "fa-earth-americas",
+                content: `<p><strong>Kegiatan Ekonomi</strong> adalah seluruh aktivitas atau perilaku yang dilakukan oleh manusia untuk memenuhi kebutuhan hidupnya yang beraneka ragam.</p>
+                          <br><p>Manusia memiliki kebutuhan dasar (pangan, sandang, papan) serta kebutuhan tambahan lainnya. Karena sumber daya terbatas, manusia harus melakukan kegiatan ekonomi secara bijak yang terbagi menjadi 3 pilar utama: <strong>Produksi, Distribusi, dan Konsumsi</strong>.</p>`
+            },
+            {
+                title: "1. Kegiatan Produksi",
+                icon: "fa-industry",
+                content: `<p><strong>Produksi</strong> adalah kegiatan menghasilkan barang/jasa atau menambah nilai guna suatu benda agar lebih berguna dalam memenuhi kebutuhan.</p>
+                          <br><ul>
+                            <li><strong>Pelaku:</strong> Produsen.</li>
+                            <li><strong>Tujuan:</strong> Memenuhi kebutuhan konsumen & memperoleh keuntungan.</li>
+                            <li><strong>Contoh:</strong> Petani menanam padi, pabrik merakit HP, koki memasak di restoran.</li>
+                          </ul>`
+            },
+            {
+                title: "2. Kegiatan Distribusi",
+                icon: "fa-truck-fast",
+                content: `<p><strong>Distribusi</strong> adalah kegiatan menyalurkan barang atau jasa hasil produksi dari produsen kepada konsumen agar tersebar luas.</p>
+                          <br><ul>
+                            <li><strong>Pelaku:</strong> Distributor (Pedagang besar, agen, pengecer, kurir).</li>
+                            <li><strong>Tujuan:</strong> Memastikan barang sampai ke konsumen yang membutuhkan pada waktu yang tepat.</li>
+                            <li><strong>Contoh:</strong> Supermarket menjual produk pabrik, pedagang keliling, jasa pengiriman barang ekspedisi.</li>
+                          </ul>`
+            },
+            {
+                title: "3. Kegiatan Konsumsi",
+                icon: "fa-utensils",
+                content: `<p><strong>Konsumsi</strong> adalah kegiatan menggunakan, mengurangi, atau menghabiskan nilai guna barang dan jasa secara bertahap maupun sekaligus.</p>
+                          <br><ul>
+                            <li><strong>Pelaku:</strong> Konsumen (Individu, Keluarga, Masyarakat).</li>
+                            <li><strong>Tujuan:</strong> Memenuhi kebutuhan hidup secara langsung.</li>
+                            <li><strong>Contoh:</strong> Memakan makanan, mengendarai sepeda motor, memakai pakaian sekolah.</li>
+                          </ul>`
+            },
+            {
+                title: "Contoh Kegiatan di Lingkungan Sekitar",
+                icon: "fa-store",
+                content: `<p>Mari kita amati alur barang yang ada di sekitar kita sehari-hari:</p><br>
+                          <p><strong>Contoh Alur Beras:</strong></p>
+                          <ol style="margin-left:20px;">
+                            <li><strong>Produksi:</strong> Petani mengolah sawah dan memanen Padi.</li>
+                            <li><strong>Distribusi:</strong> Truk mengangkut beras dari desa ke pasar kota dan toko kelontong.</li>
+                            <li><strong>Konsumsi:</strong> Orang tua kita membeli beras untuk dimasak dan dimakan bersama keluarga.</li>
+                          </ol>`
+            }
+        ];
+
+        /* ==========================================================================
+           INISIALISASI APLIKASI
+           ========================================================================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            // Set Link Eksternal
+            document.getElementById('link-materi').href = URL_GOOGLE_DOKUMEN_MATERI;
+            document.getElementById('link-lkpd').href = URL_GOOGLE_DOKUMEN_LKPD;
+            document.getElementById('link-panduan').href = URL_PANDUAN_GURU;
+
+            // Load Materi awal
+            switchMateri(0);
+            
+            // Inisialisasi Drag & Drop Game
+            initDragAndDrop();
+
+            // Web Audio API Synth Sound Feedback
+            initSoundToggle();
+        });
+
+        /* Fitur Audio Feedback (Bisa Aktif / Muted) */
+        function playAudioFeedback(type) {
+            if (audioMuted) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+                    osc.frequency.setValueAtTime(196, ctx.currentTime + 0.1); // G3
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                }
+            } catch(e) { console.log("Audio not supported"); }
+        }
+
+        function initSoundToggle() {
+            const btn = document.getElementById('toggleSound');
+            btn.addEventListener('click', () => {
+                audioMuted = !audioMuted;
+                btn.innerHTML = audioMuted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
+            });
+        }
+
+        /* Navigasi Layar */
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0,0);
+
+            if(screenId === 'screen-quiz' && currentQuizIndex === 0) {
+                renderQuestion();
+            }
+            if(screenId === 'screen-teacher') {
+                renderTeacherDashboard();
+            }
+        }
+
+        /* Handling Form Pengguna */
+        function startApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('username').value.trim();
+            const cls = document.getElementById('userclass').value;
+
+            if (name && cls) {
+                currentUser.name = name;
+                currentUser.class = cls;
+                document.getElementById('displayUser').innerText = `${name} (${cls})`;
+                showScreen('screen-menu');
+            }
+        }
+
+        /* Switch Modul Materi */
+        function switchMateri(index) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach((t, i) => {
+                if(i === index) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+
+            const data = materiData[index];
+            const contentBox = document.getElementById('materi-content');
+            contentBox.innerHTML = `
+                <div class="illustration-box"><i class="fa-solid ${data.icon}"></i></div>
+                <h3>${data.title}</h3>
+                <br>
+                <div>${data.content}</div>
+            `;
+        }
+
+        /* ==========================================================================
+           LOGIKA GAME INTERAKTIF DRAG AND DROP
+           ========================================================================== */
+        function initDragAndDrop() {
+            const draggables = document.querySelectorAll('.draggable');
+            const dropzones = document.querySelectorAll('.dropzone');
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', () => {
+                    draggable.classList.add('dragging');
+                });
+
+                draggable.addEventListener('dragend', () => {
+                    draggable.classList.remove('dragging');
+                });
+            });
+
+            dropzones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.style.background = "#F0FDF4";
+                });
+
+                zone.addEventListener('dragleave', () => {
+                    zone.style.background = "white";
+                });
+
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.style.background = "white";
+                    const draggable = document.querySelector('.dragging');
+                    if (!draggable) return;
+
+                    const itemCat = draggable.getAttribute('data-category');
+                    const zoneCat = zone.getAttribute('data-category');
+
+                    if (itemCat === zoneCat) {
+                        zone.appendChild(draggable);
+                        draggable.style.background = "var(--success)";
+                        playAudioFeedback('correct');
+                    } else {
+                        playAudioFeedback('wrong');
+                        alert('Kategori kurang tepat! Coba letakkan di tempat lain.');
+                    }
+                });
+            });
+        }
+
+        function resetGame() {
+            const container = document.getElementById('drag-container');
+            const draggables = document.querySelectorAll('.draggable');
+            draggables.forEach(item => {
+                item.style.background = "var(--primary)";
+                container.appendChild(item);
+            });
+        }
+
+        /* ==========================================================================
+           LOGIKA KUIS EVALUASI
+           ========================================================================== */
+        function renderQuestion() {
+            const q = quizData[currentQuizIndex];
+            document.getElementById('quiz-progress').innerText = `Soal ${currentQuizIndex + 1} dari ${quizData.length}`;
+            document.getElementById('quiz-score-live').innerText = `Skor: ${quizScore}`;
+            document.getElementById('q-text').innerText = `${currentQuizIndex + 1}. ${q.q}`;
+            
+            const optionsGrid = document.getElementById('q-options');
+            optionsGrid.innerHTML = '';
+
+            document.getElementById('q-explain').style.display = 'none';
+            document.getElementById('btn-next-q').style.display = 'none';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(idx, btn);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIdx, btnElement) {
+            const q = quizData[currentQuizIndex];
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.disabled = true);
+
+            if (selectedIdx === q.ans) {
+                btnElement.classList.add('correct');
+                quizScore += 10;
+                totalCorrect++;
+                playAudioFeedback('correct');
+            } else {
+                btnElement.classList.add('wrong');
+                allBtns[q.ans].classList.add('correct');
+                totalWrong++;
+                playAudioFeedback('wrong');
+            }
+
+            document.getElementById('explain-text').innerText = q.exp;
+            document.getElementById('q-explain').style.display = 'block';
+            document.getElementById('quiz-score-live').innerText = `Skor: ${quizScore}`;
+            document.getElementById('btn-next-q').style.display = 'inline-flex';
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < quizData.length) {
+                renderQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-body').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+            document.getElementById('final-score').innerText = quizScore;
+            document.getElementById('final-stats').innerText = `Benar: ${totalCorrect} | Salah: ${totalWrong}`;
+
+            let msg = "";
+            if (quizScore >= 80) msg = "Luar biasa! Kamu sudah sangat menguasai konsep Kegiatan Ekonomi!";
+            else if (quizScore >= 60) msg = "Bagus! Kamu paham sebagian besar materi, ayo tingkatkan lagi!";
+            else msg = "Jangan berkecil hati, mari baca kembali materi di atas dan coba lagi!";
+            
+            document.getElementById('motivation-msg').innerText = msg;
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            totalCorrect = 0;
+            totalWrong = 0;
+            document.getElementById('quiz-body').style.display = 'block';
+            document.getElementById('quiz-result').style.display = 'none';
+            renderQuestion();
+        }
+
+        /* ==========================================================================
+           HALAMAN REFLEKSI & SINKRONISASI DATA (GOOGLE APPS SCRIPT)
+           ========================================================================== */
+        function submitRefleksi(e) {
+            e.preventDefault();
+            if(!currentUser.name) {
+                alert('Silakan isi Nama dan Kelas di halaman depan terlebih dahulu!');
+                showScreen('screen-welcome');
+                return;
+            }
+
+            const payload = {
+                timestamp: new Date().toLocaleString('id-ID'),
+                nama: currentUser.name,
+                kelas: currentUser.class,
+                skor: quizScore,
+                benar: totalCorrect,
+                salah: totalWrong,
+                refleksi1: document.getElementById('ref1').value,
+                refleksi2: document.getElementById('ref2').value,
+                refleksi3: document.getElementById('ref3').value,
+                refleksi4: document.getElementById('ref4').value
+            };
+
+            // Simpan secara Lokal (LocalStorage)
+            saveLocalData(payload);
+
+            // Kirim ke Google Apps Script Spreadsheet
+            if (URL_APPS_SCRIPT && URL_APPS_SCRIPT !== "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
+                fetch(URL_APPS_SCRIPT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(() => {
+                    alert('Hasil belajar dan refleksi berhasil terkirim ke server Guru!');
+                    showScreen('screen-menu');
+                })
+                .catch(err => {
+                    alert('Gagal mengirim ke server online. Hasil tetap tersimpan di memori lokal HP/Perangkat ini.');
+                    showScreen('screen-menu');
+                });
+            } else {
+                alert('Hasil belajar tersimpan secara lokal di perangkat ini! (Server Apps Script belum dihubungkan Guru).');
+                showScreen('screen-menu');
+            }
+        }
+
+        function saveLocalData(data) {
+            let records = JSON.parse(localStorage.getItem('ekonomi_learning_data') || '[]');
+            records.push(data);
+            localStorage.setItem('ekonomi_learning_data', JSON.stringify(records));
+        }
+
+        /* Dashboard Guru */
+        function renderTeacherDashboard() {
+            const tbody = document.getElementById('teacher-table-body');
+            tbody.innerHTML = '';
+            const records = JSON.parse(localStorage.getItem('ekonomi_learning_data') || '[]');
+
+            if (records.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Belum ada data siswa tersimpan.</td></tr>`;
+                return;
+            }
+
+            records.forEach(rec => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${rec.timestamp}</td>
+                    <td><strong>${rec.nama}</strong></td>
+                    <td>${rec.kelas}</td>
+                    <td><span style="color:var(--primary); font-weight:bold;">${rec.skor}</span></td>
+                    <td>${rec.benar} / ${rec.salah}</td>
+                    <td><small>1. ${rec.refleksi1.substring(0,30)}...</small></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function downloadCSV() {
+            const records = JSON.parse(localStorage.getItem('ekonomi_learning_data') || '[]');
+            if(records.length === 0) {
+                alert('Belum ada data untuk diunduh.');
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Tanggal,Nama,Kelas,Skor,Benar,Salah,Refleksi 1,Refleksi 2,Refleksi 3,Refleksi 4\n";
+            records.forEach(r => {
+                csvContent += `"${r.timestamp}","${r.nama}","${r.kelas}",${r.skor},${r.benar},${r.salah},"${r.refleksi1}","${r.refleksi2}","${r.refleksi3}","${r.refleksi4}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Rekap_Nilai_IPS_Kelas7_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function resetTeacherData() {
+            if (confirm("Apakah Anda yakin ingin menghapus seluruh rekap data hasil belajar siswa di perangkat ini?")) {
+                localStorage.removeItem('ekonomi_learning_data');
+                renderTeacherDashboard();
+            }
+        }
+    </script>
+</body>
+</html>
